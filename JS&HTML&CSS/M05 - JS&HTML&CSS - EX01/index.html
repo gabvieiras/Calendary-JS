@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendário</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Junho 2022</h1>
+  <div class="calendar">
+    <table id="calendarTable">
+      <thead>
+        <tr>
+          <th class="colorWeekend">Domingo</th>
+          <th>Segunda</th>
+          <th>Terça</th>
+          <th>Quarta</th>
+          <th>Quinta</th>
+          <th>Sexta</th>
+          <th color="colorWeekend">Sábado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left-border-round"><p>29</p></td>
+          <td class="day_off"><p>30</p></td>
+          <td class="day_off">31</td>
+          <td class="day" id="day1"><button>1</button></td>
+          <td class="day" id="day2"><button>2</button></td>
+          <td class="day" id="day3"><button>3</button></td>
+          <td class="right-border-round day" id="day4"><button>4</button></td>
+        </tr>
+        <tr>
+          <td class="day" id="day5"><button>5</button></td>
+          <td class="day" id="day6"><button>6</button></td>
+          <td class="day" id="day7"><button>7</button></td>
+          <td class="day" id="day8"><button>8</button></td>
+          <td class="day" id="day9"><button>9</button></td>
+          <td class="day" id="day10"><button>10</button></td>
+          <td class="day" id="day11"><button>11</button></td>
+        </tr>
+        <tr>
+          <td class="day" id="day12"><button>12</button></td>
+          <td class="day" id="day13"><button>13</button></td>
+          <td class="day" id="day14"><button>14</button></td>
+          <td class="day" id="day15"><button>15</button></td>
+          <td class="day" id="day16"><button>16</button></td>
+          <td class="day" id="day17"><button>17</button></td>
+          <td class="day" id="day18"><button>18</button></td>
+        </tr>
+        <tr>
+          <td class="day" id="day19"><button>19</button></td>
+          <td class="day" id="day20"><button>20</button></td>
+          <td class="day" id="day21"><button>21</button></td>
+          <td class="day" id="day22"><button>22</button></td>
+          <td class="day" id="day23"><button>23</button></td>
+          <td class="day" id="day24"><button>24</button></td>
+          <td class="day" id="day25"><button>25</button></td>
+        </tr>
+        <tr>
+          <td class="bottomleft-border-round day" id="day26"><button>26</button></td>
+          <td class="day" id="day27"><button>27</button></td>
+          <td class="day" id="day28"><button>28</button></td>
+          <td class="day" id="day29_2"><button>29</button></td>
+          <td class="day" id="day30_2"><button>30</button></td>
+          <td class="day_off">1</td>
+          <td class="bottomright-border-round">2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="selectedDay"></div>
+
+  <script>
+    const days = document.querySelectorAll('.day');
+    days.forEach(day => {
+      day.addEventListener('click', () => {
+        const selectedDay = day.textContent;
+        const selectedDate = new Date(2022, 5, parseInt(selectedDay));
+        const formattedDate = getFormattedDate(selectedDate);
+        document.getElementById('selectedDay').textContent = formattedDate;
+        document.getElementById('selectedDay').classList.add('selected-day');
+      });
+    });
+
+    function getFormattedDate(date) {
+      const day = date.getDate();
+      const month = getMonthName(date.getMonth());
+      const year = date.getFullYear();
+      const dayText = getDayText(day);
+      return `${dayText} de ${month} de ${year}`;
+    }
+
+    function getMonthName(monthIndex) {
+      const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      return months[monthIndex];
+    }
+
+    function getDayText(day) {
+      const units = ['Zero', 'Um', 'Dois', 'Três', 'Quatro', 'Cinco', 'Seis', 'Sete', 'Oito', 'Nove', 'Dez'];
+      const teens = ['Onze', 'Doze', 'Treze', 'Quatorze', 'Quinze', 'Dezesseis', 'Dezessete', 'Dezoito', 'Dezenove'];
+      const tens = ['Vinte', 'Trinta'];
+
+      if (day >= 1 && day <= 10) {
+        return units[day];
+      } else if (day >= 11 && day <= 19) {
+        return teens[day - 11];
+      } else if (day % 10 === 0) {
+        return tens[day / 10 - 2];
+      } else {
+        const ten = Math.floor(day / 10);
+        const unit = day % 10;
+        return `${tens[ten - 2]} e ${units[unit]}`;
+      }
+    }
+  </script>
+</body>
+
+</html>
