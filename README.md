@@ -1,2 +1,2 @@
-# Calendary-JS.github.io
+# Calendary-JS
 Model of Calendary in JavaScript
